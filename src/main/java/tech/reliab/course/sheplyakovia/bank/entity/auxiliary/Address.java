@@ -1,8 +1,20 @@
 package tech.reliab.course.sheplyakovia.bank.entity.auxiliary;
 
 public class Address {
-    public String country;
-    public String city;
-    public String street;
-    public int house;
+    private String country;
+    private String city;
+    private String street;
+    private String house;
+
+    public Address(String country, String city, String street, String house) {
+        this.country = country;
+        this.city = city;
+        this.street = street;
+        this.house = house;
+    }
+
+    @Override
+    public String toString() {
+        return country + ", " + city + " ," + street + " " + house;
+    }
 }
