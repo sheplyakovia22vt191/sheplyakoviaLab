@@ -7,7 +7,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 @Builder
 public class PaymentAccount {
     /** Id платёжного счета */
@@ -21,4 +20,12 @@ public class PaymentAccount {
 
     /** Сумма, которая лежит в данный момент на счету */
     private int moneyAmount;
+
+    @Override
+    public String toString() {
+        return "PaymentAccount{" +
+                "id=" + id +
+                ", moneyAmount=" + moneyAmount +
+                '}';
+    }
 }

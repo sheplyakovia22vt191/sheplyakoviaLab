@@ -3,11 +3,11 @@ package tech.reliab.course.sheplyakovia.bank.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
+
+import java.util.ArrayList;
 
 @Getter
 @Setter
-@ToString
 @Builder
 public class Bank {
     /** Id банка */
@@ -16,24 +16,39 @@ public class Bank {
     /** Имя банка */
     private String name;
 
-    /** Кол-во офисов */
-    private int officeCount;
+    /** Офисы */
+    private ArrayList<BankOffice> bankOffices;
 
-    /** Кол-во банкоматов */
-    private int atmCount;
+    /** Банкоматы */
+    private ArrayList<BankAtm> bankATMS;
 
-    /** Кол-во сотрудников */
-    private int employeeCount;
+    /** Сотрудники */
+    private ArrayList<Employee> employees;
 
     /** Кол-во клиентов */
-    private int clientCount;
+    private ArrayList<User> clients;
 
     /** Рейтинг банка */
-    private int rate; //
+    private int rate;
 
     /** Всего денег в банке */
     private long moneyAmount;
 
     /** Процентная ставка */
     private int interestRate;
+
+    @Override
+    public String toString() {
+        return "Bank{" +
+                "id = " + id +
+                ", name = '" + name + '\'' +
+                ", offices count =" + bankOffices.size() +
+                ", atms count = " + bankATMS.size() +
+                ", employees count = " + employees.size() +
+                ", clients count = " + clients.size() +
+                ", rate = " + rate +
+                ", money amount = " + moneyAmount +
+                ", interest rate=" + interestRate +
+                '}';
+    }
 }

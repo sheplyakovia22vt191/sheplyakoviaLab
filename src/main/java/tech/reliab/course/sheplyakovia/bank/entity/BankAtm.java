@@ -9,7 +9,6 @@ import tech.reliab.course.sheplyakovia.bank.enums.WorkStatus;
 
 @Getter
 @Setter
-@ToString
 @Builder
 public class BankAtm {
     /** Id банкомата */
@@ -23,6 +22,7 @@ public class BankAtm {
 
     /** Статус */
     private WorkStatus status;
+
     /** Банк, которому принадлежит банкомат */
     private Bank bank;
 
@@ -43,4 +43,21 @@ public class BankAtm {
 
     /** Стоимость обслуживания банкомата */
     private int maintenanceCost;
+
+    @Override
+    public String toString() {
+        return "BankAtm{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address=" + address +
+                ", status=" + status +
+                ", bank=" + bank +
+                ", location=" + location +
+                ", servingEmployee=" + servingEmployee +
+                ", extradition=" + extradition +
+                ", introduction=" + introduction +
+                ", moneyAmount=" + moneyAmount +
+                ", maintenanceCost=" + maintenanceCost +
+                '}';
+    }
 }
