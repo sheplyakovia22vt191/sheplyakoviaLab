@@ -10,4 +10,13 @@ public class FCs {
         this.lastName = lastName;
         this.patronymic = patronymic;
     }
+
+    @Override
+    public String toString() {
+        return "FCs{" +
+                "name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                '}';
+    }
 }

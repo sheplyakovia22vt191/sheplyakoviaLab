@@ -10,7 +10,6 @@ import java.util.Date;
 
 @Getter
 @Setter
-@ToString
 @Builder
 public class Employee {
     /** Id сотрудника */
@@ -39,4 +38,19 @@ public class Employee {
 
     /** Размер зарплаты */
     private int salary;
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", fcs=" + fcs +
+                ", birthday=" + birthday +
+                ", post='" + post + '\'' +
+                ", bank=" + bank +
+                ", isRemotely=" + isRemotely +
+                ", office=" + office +
+                ", creditAvailable=" + creditAvailable +
+                ", salary=" + salary +
+                '}';
+    }
 }

@@ -6,12 +6,12 @@ import lombok.Setter;
 import lombok.ToString;
 import tech.reliab.course.sheplyakovia.bank.entity.auxiliary.FCs;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 @Getter
 @Setter
 @Builder
-@ToString
 public class User {
 
     /** Id клиента */
@@ -30,14 +30,29 @@ public class User {
     private int income;
 
     /** Банки, которыми он пользуется */
-    private Bank banks;
+    private ArrayList<Bank> banks;
 
     /** Кредитные счета */
-    private CreditAccount creditAccounts;
+    private ArrayList<CreditAccount> creditAccounts;
 
     /** Платежные счета */
-    private PaymentAccount paymentAccounts;
+    private ArrayList<PaymentAccount> paymentAccounts;
 
     /** Кредитный рейтинг для банка */
     private int rate;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", fcs=" + fcs +
+                ", birthday=" + birthday +
+                ", workPlace='" + workPlace + '\'' +
+                ", income=" + income +
+                ", banks=" + banks +
+                ", creditAccounts=" + creditAccounts +
+                ", paymentAccounts=" + paymentAccounts +
+                ", rate=" + rate +
+                '}';
+    }
 }

@@ -5,10 +5,8 @@ import tech.reliab.course.sheplyakovia.bank.entity.PaymentAccount;
 import tech.reliab.course.sheplyakovia.bank.entity.User;
 
 public interface PaymentAccountService {
-    PaymentAccount create(User user, Bank bank);
-
-    PaymentAccount getPaymentAccount();
-
-    void update(PaymentAccount paymentAccount);
-    void delete(PaymentAccount paymentAccount);
+    void create(User user, Bank bank);
+    PaymentAccount getPaymentAccount(int id);
+    void update(int userId, int id, PaymentAccount paymentAccount, User user);
+    void delete(int userId, int id, PaymentAccount paymentAccount, User user);
 }

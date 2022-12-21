@@ -1,22 +1,22 @@
 package tech.reliab.course.sheplyakovia.bank.service;
 
-import tech.reliab.course.sheplyakovia.bank.entity.Bank;
+import tech.reliab.course.sheplyakovia.bank.entity.*;
 
 public interface BankService {
-    Bank createBank(String name);
-    Bank getBank();
-    void update(Bank bank);
-    void delete(Bank bank);
+    void createBank(String name);
+    Bank getBank(int id);
+    void update(int id, Bank bank);
+    void delete(int id);
 
-    void addAtm(Bank bank);
-    void deleteAtm(Bank bank);
+    void addAtm(int id, BankAtm bankAtm);
+    void deleteAtm(int id, BankAtm bankAtm);
 
-    void addBankOffice(Bank bank);
-    void deleteBankOffice(Bank bank);
+    void addBankOffice(int id, BankOffice bankOffice);
+    void deleteBankOffice(int id, BankOffice bankOffice);
 
-    void addEmployee(Bank bank);
-    void deleteEmployee(Bank bank);
+    void addEmployee(int id, Employee employee);
+    void deleteEmployee(int id, Employee employee);
 
-    void addClient(Bank bank);
-    void deleteClient(Bank bank);
+    void addClient(int id, User user);
+    void deleteClient(int id, User user);
 }

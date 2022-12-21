@@ -5,18 +5,26 @@ import tech.reliab.course.sheplyakovia.bank.entity.PaymentAccount;
 import tech.reliab.course.sheplyakovia.bank.entity.User;
 import tech.reliab.course.sheplyakovia.bank.service.PaymentAccountService;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
 public class PaymentAccountServiceImpl implements PaymentAccountService {
 
-    private PaymentAccount paymentAccount;
-    private Long id = 0L;
+    private int id = 0;
+    private final ArrayList<PaymentAccount> paymentAccounts = new ArrayList<>(0);
+
+    /**
+     * Создает объект платёжного счета.
+     *
+     * @param user Воаделец платёжного счета.
+     * @param bank Банк, в котором открыт платёжный счет.
+     */
     @Override
-    public PaymentAccount create(User user, Bank bank) {
+    public void create(User user, Bank bank) {
         Random random = new Random();
 
-        this.paymentAccount = PaymentAccount
+        PaymentAccount paymentAccount = PaymentAccount
                 .builder()
                 .id(this.id++)
                 .user(user)
@@ -24,23 +32,46 @@ public class PaymentAccountServiceImpl implements PaymentAccountService {
                 .moneyAmount(random.nextInt(100_000))
                 .build();
 
-        return this.paymentAccount;
+        user.getPaymentAccounts().add(paymentAccount);
+        paymentAccounts.add(paymentAccount);
     }
 
+    /**
+     * Возвращает объект платёжного счета.
+     *
+     * @param id Id платёжного счета
+     * @return Объект платёжного счета.
+     */
     @Override
-    public PaymentAccount getPaymentAccount() {
-        return this.paymentAccount;
+    public PaymentAccount getPaymentAccount(int id) {
+        return this.paymentAccounts.get(id);
     }
 
+    /**
+     * Обновляет объект платёжного счета.
+     *
+     * @param userId         Id платёжного счета у пользователя.
+     * @param id             Id платёжного счета.
+     * @param paymentAccount Новый платёжный счет.
+     * @param user           Пользоваль платёжного счета.
+     */
     @Override
-    public void update(PaymentAccount paymentAccounts) {
-        this.paymentAccount = paymentAccounts;
+    public void update(int userId, int id, PaymentAccount paymentAccount, User user) {
+        user.getPaymentAccounts().set(userId, paymentAccount);
+        this.paymentAccounts.set(id, paymentAccount);
     }
 
+    /**
+     * Удаляет объект платёжного счета.
+     *
+     * @param userId         Id платёжного счета у пользователя.
+     * @param id             Id платёжного счета.
+     * @param paymentAccount Платёжный счет.
+     * @param user           Пользоваль платёжного счета.
+     */
     @Override
-    public void delete(PaymentAccount paymentAccount) {
-        if (Objects.equals(this.paymentAccount, paymentAccount)) {
-            this.paymentAccount = null;
-        }
+    public void delete(int userId, int id, PaymentAccount paymentAccount, User user) {
+        user.getPaymentAccounts().remove(userId);
+        this.paymentAccounts.remove(paymentAccount);
     }
 }

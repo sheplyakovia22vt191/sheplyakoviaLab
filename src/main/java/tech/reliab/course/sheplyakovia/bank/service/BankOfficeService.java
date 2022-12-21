@@ -5,8 +5,8 @@ import tech.reliab.course.sheplyakovia.bank.entity.BankOffice;
 import tech.reliab.course.sheplyakovia.bank.entity.auxiliary.Address;
 
 public interface BankOfficeService {
-    BankOffice create(String name, Address address, Bank bank);
-    BankOffice getBankOffice();
-    void update(BankOffice bankOffice);
-    void delete(BankOffice bankOffice);
+    void create(String name, Address address, Bank bank);
+    BankOffice getBankOffice(int id);
+    void update(int id, Bank bank, BankOffice bankOffice);
+    void delete(int id, Bank bank);
 }

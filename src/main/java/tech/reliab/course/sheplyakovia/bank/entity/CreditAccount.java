@@ -9,7 +9,6 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@ToString
 @Builder
 public class CreditAccount {
     /** Id кредитного счета */
@@ -18,7 +17,7 @@ public class CreditAccount {
     /** Пользователь, за которым закреплен этот кредитный счет */
     private User user;
 
-    /** Банка, где взят кредит */
+    /** Банк, где взят кредит */
     private Bank bank;
 
     /** Дата начала кредита */
@@ -47,4 +46,17 @@ public class CreditAccount {
      * данного кредита
      */
     private PaymentAccount paymentAccount;
+
+    @Override
+    public String toString() {
+        return "CreditAccount{" +
+                "id=" + id +
+                ", creditStart=" + creditStart +
+                ", creditEnd=" + creditEnd +
+                ", creditMonthCount=" + creditMonthCount +
+                ", creditAmount=" + creditAmount +
+                ", monthPayment=" + monthPayment +
+                ", interestRate=" + interestRate +
+                '}';
+    }
 }

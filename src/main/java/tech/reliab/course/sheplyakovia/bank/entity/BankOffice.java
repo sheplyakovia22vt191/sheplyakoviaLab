@@ -7,9 +7,10 @@ import lombok.ToString;
 import tech.reliab.course.sheplyakovia.bank.entity.auxiliary.Address;
 import tech.reliab.course.sheplyakovia.bank.enums.WorkStatus;
 
+import java.util.ArrayList;
+
 @Getter
 @Setter
-@ToString
 @Builder
 public class BankOffice {
     /** Id банковского офиса */
@@ -27,8 +28,8 @@ public class BankOffice {
     /** Можно ли разместить банкомат? */
     private boolean placeAtmAvailable;
 
-    /** Кол-во банкоматов в данном офисе */
-    private int atmCount;
+    /** Банкоматы */
+    private ArrayList<BankAtm> bankAtms;
 
     /** Можно ли оформить кредит в данном офисе? */
     private boolean creditAvailable;
@@ -47,4 +48,22 @@ public class BankOffice {
 
     /** Банк */
     private Bank bank;
+
+    @Override
+    public String toString() {
+        return "BankOffice{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address=" + address +
+                ", status=" + status +
+                ", placeAtmAvailable=" + placeAtmAvailable +
+                ", bankAtms=" + bankAtms +
+                ", creditAvailable=" + creditAvailable +
+                ", extradition=" + extradition +
+                ", introduction=" + introduction +
+                ", moneyAmount=" + moneyAmount +
+                ", rentCost=" + rentCost +
+                ", bank=" + bank +
+                '}';
+    }
 }
