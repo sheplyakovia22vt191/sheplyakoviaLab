@@ -17,6 +17,10 @@ public class Main {
         lab2Main();
     }
 
+    private static void lab3Main() {
+
+    }
+
     private static void lab2Main() {
         BankService bankService = new BankServiceImpl();
         AtmService atmService = new AtmServiceImpl();
@@ -52,7 +56,7 @@ public class Main {
                 for (int k = 0; k < EMPLOYEES_COUNT; k++) {
                     employeeService.create(
                             new FCs("Dmitry", "Ampilogov " + k, "Vadimovich"),
-                            "Тестировщик",
+                            "Testers",
                             bankService.getBank(i),
                             bankOfficeService.getBankOffice(j)
                     );

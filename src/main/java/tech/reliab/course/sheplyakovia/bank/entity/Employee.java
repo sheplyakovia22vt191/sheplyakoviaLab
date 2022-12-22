@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
-public class Employee {
+public class Employee implements Entity{
     /** Id сотрудника */
     private long id;
 
@@ -52,5 +52,10 @@ public class Employee {
                 ", creditAvailable=" + creditAvailable +
                 ", salary=" + salary +
                 '}';
+    }
+
+    @Override
+    public String getSimpleName() {
+        return "Employee";
     }
 }

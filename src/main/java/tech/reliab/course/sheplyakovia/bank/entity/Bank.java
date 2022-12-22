@@ -9,7 +9,7 @@ import java.util.ArrayList;
 @Getter
 @Setter
 @Builder
-public class Bank {
+public class Bank implements Entity{
     /** Id банка */
     private long id;
 
@@ -50,5 +50,10 @@ public class Bank {
                 ", money amount = " + moneyAmount +
                 ", interest rate=" + interestRate +
                 '}';
+    }
+
+    @Override
+    public String getSimpleName() {
+        return "Bank";
     }
 }

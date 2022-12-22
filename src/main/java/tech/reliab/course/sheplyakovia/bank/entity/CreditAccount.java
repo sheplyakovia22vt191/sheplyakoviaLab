@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Builder
-public class CreditAccount {
+public class CreditAccount implements Entity{
     /** Id кредитного счета */
     private long id;
 
@@ -58,5 +58,10 @@ public class CreditAccount {
                 ", monthPayment=" + monthPayment +
                 ", interestRate=" + interestRate +
                 '}';
+    }
+
+    @Override
+    public String getSimpleName() {
+        return "CreditAccount";
     }
 }

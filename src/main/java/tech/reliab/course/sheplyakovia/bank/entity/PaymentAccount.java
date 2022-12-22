@@ -8,7 +8,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @Builder
-public class PaymentAccount {
+public class PaymentAccount implements Entity{
     /** Id платёжного счета */
     private long id;
 
@@ -27,5 +27,10 @@ public class PaymentAccount {
                 "id=" + id +
                 ", moneyAmount=" + moneyAmount +
                 '}';
+    }
+
+    @Override
+    public String getSimpleName() {
+        return "PaymentAccount";
     }
 }
