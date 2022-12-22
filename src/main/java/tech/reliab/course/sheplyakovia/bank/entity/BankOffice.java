@@ -12,7 +12,7 @@ import java.util.ArrayList;
 @Getter
 @Setter
 @Builder
-public class BankOffice {
+public class BankOffice implements Entity{
     /** Id банковского офиса */
     private long id;
 
@@ -65,5 +65,10 @@ public class BankOffice {
                 ", rentCost=" + rentCost +
                 ", bank=" + bank +
                 '}';
+    }
+
+    @Override
+    public String getSimpleName() {
+        return "BankOffice";
     }
 }

@@ -12,7 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
-public class User {
+public class User implements Entity{
 
     /** Id клиента */
     private long id;
@@ -54,5 +54,10 @@ public class User {
                 ", paymentAccounts=" + paymentAccounts +
                 ", rate=" + rate +
                 '}';
+    }
+
+    @Override
+    public String getSimpleName() {
+        return "User";
     }
 }

@@ -10,7 +10,7 @@ import tech.reliab.course.sheplyakovia.bank.enums.WorkStatus;
 @Getter
 @Setter
 @Builder
-public class BankAtm {
+public class BankAtm implements Entity{
     /** Id банкомата */
     private long id;
 
@@ -59,5 +59,10 @@ public class BankAtm {
                 ", moneyAmount=" + moneyAmount +
                 ", maintenanceCost=" + maintenanceCost +
                 '}';
+    }
+
+    @Override
+    public String getSimpleName() {
+        return "BankAtm";
     }
 }
