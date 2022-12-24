@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class AtmServiceImpl implements AtmService {
 
-    private long id = 0;
+    private int id = 0;
     private final ArrayList<BankAtm> bankAtms = new ArrayList<>(0);
 
     /**
@@ -41,6 +41,7 @@ public class AtmServiceImpl implements AtmService {
 
         bankAtms.add(bankAtm);
         bank.getBankATMS().add(bankAtm);
+        office.getBankAtms().add(bankAtm);
 
     }
 
@@ -71,12 +72,21 @@ public class AtmServiceImpl implements AtmService {
     /**
      * Удаляет объект банкомата.
      *
-     * @param id   Id банкомата.
+     * @param bankAtm   Id банкомата.
      * @param bank Банк, которому пренадлежит банкомат.
      */
     @Override
-    public void delete(int id, Bank bank) {
-        bank.getBankATMS().remove(id);
-        bankAtms.remove(id);
+    public void delete(BankAtm bankAtm, Bank bank) {
+        bank.getBankATMS().remove(bankAtm);
+        bankAtms.remove(bankAtm);
+    }
+
+    /**
+     *
+     * @return Все банкоматы.
+     */
+    @Override
+    public ArrayList<BankAtm> getAtms() {
+        return this.bankAtms;
     }
 }

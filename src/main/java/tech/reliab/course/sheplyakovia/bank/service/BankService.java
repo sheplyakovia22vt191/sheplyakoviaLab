@@ -2,7 +2,11 @@ package tech.reliab.course.sheplyakovia.bank.service;
 
 import tech.reliab.course.sheplyakovia.bank.entity.*;
 
+import java.util.ArrayList;
+
+
 public interface BankService {
+
     void createBank(String name);
     Bank getBank(int id);
     void update(int id, Bank bank);
@@ -19,4 +23,6 @@ public interface BankService {
 
     void addClient(int id, User user);
     void deleteClient(int id, User user);
+
+    ArrayList<Bank> getBanks();
 }

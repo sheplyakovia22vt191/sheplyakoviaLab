@@ -29,7 +29,7 @@ public class PaymentAccountServiceImpl implements PaymentAccountService {
                 .id(this.id++)
                 .user(user)
                 .bank(bank)
-                .moneyAmount(random.nextInt(100_000))
+                .moneyAmount(random.nextInt(500_000))
                 .build();
 
         user.getPaymentAccounts().add(paymentAccount);
@@ -73,5 +73,14 @@ public class PaymentAccountServiceImpl implements PaymentAccountService {
     public void delete(int userId, int id, PaymentAccount paymentAccount, User user) {
         user.getPaymentAccounts().remove(userId);
         this.paymentAccounts.remove(paymentAccount);
+    }
+
+    /**
+     *
+     * @return Все платёжные счета.
+     */
+    @Override
+    public ArrayList<PaymentAccount> getPaymentAccounts() {
+        return this.paymentAccounts;
     }
 }

@@ -11,44 +11,62 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
-public class Employee implements Entity{
-    /** Id сотрудника */
-    private long id;
+public class Employee implements Entity {
+    /**
+     * Id сотрудника
+     */
+    private int id;
 
-    /** ФИО */
+    /**
+     * ФИО
+     */
     private FCs fcs;
 
-    /** Дата рождения */
+    /**
+     * Дата рождения
+     */
     private Date birthday;
 
-    /** Должность */
+    /**
+     * Должность
+     */
     private String post;
 
-    /** В каком банке работает */
+    /**
+     * В каком банке работает
+     */
     private Bank bank;
 
-    /** Работает ли в банковском офисе или удаленно? */
+    /**
+     * Работает ли в банковском офисе или удаленно?
+     */
     private boolean isRemotely;
 
-    /** Банковский офис, в котором работает */
+    /**
+     * Банковский офис, в котором работает
+     */
     private BankOffice office;
 
-    /** Может ли выдавать кредиты? */
+    /**
+     * Может ли выдавать кредиты?
+     */
     private boolean creditAvailable;
 
-    /** Размер зарплаты */
+    /**
+     * Размер зарплаты
+     */
     private int salary;
 
     @Override
     public String toString() {
-        return "Employee{" +
+        return "Employee {" +
                 "id=" + id +
                 ", fcs=" + fcs +
                 ", birthday=" + birthday +
                 ", post='" + post + '\'' +
-                ", bank=" + bank +
+                ", bank=" + bank.getName() +
                 ", isRemotely=" + isRemotely +
-                ", office=" + office +
+                ", office=" + office.getName() +
                 ", creditAvailable=" + creditAvailable +
                 ", salary=" + salary +
                 '}';

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class BankOfficeServiceImpl implements BankOfficeService {
-    private long id = 0;
+    private int id = 0;
     private final ArrayList<BankOffice> bankOffices = new ArrayList<>(0);
 
 
@@ -30,10 +30,10 @@ public class BankOfficeServiceImpl implements BankOfficeService {
                 .id(this.id++)
                 .name(name)
                 .address(address)
-                .status(WorkStatus.getRandomStatus())
+                .status(WorkStatus.WORKING)
                 .placeAtmAvailable(random.nextBoolean())
                 .bankAtms(new ArrayList<>())
-                .creditAvailable(random.nextBoolean())
+                .creditAvailable(true)
                 .extradition(random.nextBoolean())
                 .introduction(random.nextBoolean())
                 .moneyAmount(bank.getMoneyAmount())
@@ -72,12 +72,21 @@ public class BankOfficeServiceImpl implements BankOfficeService {
     /**
      * Удаляет объект банковского офиса.
      *
-     * @param id   Id банковского офиса.
-     * @param bank Банк, которому пренадлежит офис.
+     * @param bankOffice Банковский офис.
+     * @param bank       Банк, которому пренадлежит офис.
      */
     @Override
-    public void delete(int id, Bank bank) {
-        bank.getBankOffices().remove(id);
-        bankOffices.remove(id);
+    public void delete(BankOffice bankOffice, Bank bank) {
+        bank.getBankOffices().remove(bankOffice);
+        bankOffices.remove(bankOffice);
+    }
+
+    /**
+     *
+     * @return Все банковские офисы.
+     */
+    @Override
+    public ArrayList<BankOffice> getBankOffices() {
+        return this.bankOffices;
     }
 }

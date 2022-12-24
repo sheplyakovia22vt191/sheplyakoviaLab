@@ -8,8 +8,8 @@ import java.util.Random;
 
 public class BankServiceImpl implements BankService {
 
-    private long id = 0;
-    private final ArrayList<Bank> banks = new ArrayList<>(0);;
+    private int id = 0;
+    private final ArrayList<Bank> banks = new ArrayList<>(0);
 
     /**
      * Создает объект банка.
@@ -30,7 +30,7 @@ public class BankServiceImpl implements BankService {
                 .employees(new ArrayList<>())
                 .clients(new ArrayList<>())
                 .rate(rate)
-                .moneyAmount(random.nextLong(1_000_000L))
+                .moneyAmount(random.nextLong(1_000_000L, 10_000_000L))
                 .interestRate((int) (20 - rate / 10D))
                 .build();
 
@@ -157,5 +157,14 @@ public class BankServiceImpl implements BankService {
     @Override
     public void deleteClient(int id, User user) {
         this.banks.get(id).getClients().remove(user);
+    }
+
+    /**
+     *
+     * @return Все банки.
+     */
+    @Override
+    public ArrayList<Bank> getBanks() {
+        return this.banks;
     }
 }

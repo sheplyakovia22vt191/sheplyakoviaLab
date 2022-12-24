@@ -27,10 +27,10 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .fcs(fcs)
                 .birthday(Date.from(Instant.now()))
                 .post(post)
-                .bank(bank)
+                .bank(office.getBank())
                 .isRemotely(random.nextBoolean())
                 .office(office)
-                .creditAvailable(random.nextBoolean())
+                .creditAvailable(true)
                 .salary(random.nextInt(100_000))
                 .build();
 
@@ -68,5 +68,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void delete(Employee employee) {
         this.employees.remove(employee);
+    }
+
+    /**
+     *
+     * @return Все работяги.
+     */
+    @Override
+    public ArrayList<Employee> getEmployees() {
+        return this.employees;
     }
 }

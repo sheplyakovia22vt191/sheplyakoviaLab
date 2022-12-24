@@ -14,7 +14,7 @@ import java.util.ArrayList;
 @Builder
 public class BankOffice implements Entity{
     /** Id банковского офиса */
-    private long id;
+    private int id;
 
     /** Название офиса */
     private String name;
@@ -30,6 +30,8 @@ public class BankOffice implements Entity{
 
     /** Банкоматы */
     private ArrayList<BankAtm> bankAtms;
+
+
 
     /** Можно ли оформить кредит в данном офисе? */
     private boolean creditAvailable;
@@ -51,19 +53,19 @@ public class BankOffice implements Entity{
 
     @Override
     public String toString() {
-        return "BankOffice{" +
+        return "BankOffice {" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", bank=" + bank.getName() +
                 ", address=" + address +
                 ", status=" + status +
                 ", placeAtmAvailable=" + placeAtmAvailable +
-                ", bankAtms=" + bankAtms +
+                ", bankAtms count = " + bankAtms.size() +
                 ", creditAvailable=" + creditAvailable +
                 ", extradition=" + extradition +
                 ", introduction=" + introduction +
                 ", moneyAmount=" + moneyAmount +
                 ", rentCost=" + rentCost +
-                ", bank=" + bank +
                 '}';
     }
 

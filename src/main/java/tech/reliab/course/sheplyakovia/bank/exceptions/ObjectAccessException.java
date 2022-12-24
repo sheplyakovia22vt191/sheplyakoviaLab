@@ -1,15 +1,24 @@
 package tech.reliab.course.sheplyakovia.bank.exceptions;
 
-public class ObjectAccessException extends RuntimeException{
-    private final String objectName;
+import tech.reliab.course.sheplyakovia.bank.entity.Entity;
+
+public class ObjectAccessException extends RuntimeException {
+    private final Entity entity;
     private final String reason;
-    public ObjectAccessException(String objectName, String reason) {
-        this.objectName = objectName;
+
+    /**
+     * Ошибка доступа к объекту.
+     *
+     * @param entity Объект.
+     * @param reason Причина.
+     */
+    public ObjectAccessException(Entity entity, String reason) {
+        this.entity = entity;
         this.reason = reason;
     }
 
     @Override
     public String getMessage() {
-        return "Ошибка доступа к объекту \"" + objectName + "\" по причине " + reason;
+        return "Object accessE error \"" + entity.getSimpleName() + "\", reason " + reason;
     }
 }

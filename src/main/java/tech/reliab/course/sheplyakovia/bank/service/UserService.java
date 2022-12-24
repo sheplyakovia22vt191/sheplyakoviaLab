@@ -6,6 +6,8 @@ import tech.reliab.course.sheplyakovia.bank.entity.PaymentAccount;
 import tech.reliab.course.sheplyakovia.bank.entity.User;
 import tech.reliab.course.sheplyakovia.bank.entity.auxiliary.FCs;
 
+import java.util.ArrayList;
+
 public interface UserService {
     void create(FCs fcs, String workPlace, Bank bank);
     User getUser(int id);
@@ -20,4 +22,6 @@ public interface UserService {
 
     void addPaymentAccount(int id, PaymentAccount paymentAccount);
     void deletePaymentAccount(int id, PaymentAccount paymentAccount);
+
+    ArrayList<User> getUsers();
 }

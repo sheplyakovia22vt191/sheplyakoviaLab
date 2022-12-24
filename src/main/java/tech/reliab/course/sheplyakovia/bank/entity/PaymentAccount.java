@@ -10,7 +10,7 @@ import lombok.ToString;
 @Builder
 public class PaymentAccount implements Entity{
     /** Id платёжного счета */
-    private long id;
+    private int id;
 
     /** Пользователь, за которым закреплен этот платежный счет */
     private User user;
@@ -23,7 +23,7 @@ public class PaymentAccount implements Entity{
 
     @Override
     public String toString() {
-        return "PaymentAccount{" +
+        return "PaymentAccount {" +
                 "id=" + id +
                 ", moneyAmount=" + moneyAmount +
                 '}';

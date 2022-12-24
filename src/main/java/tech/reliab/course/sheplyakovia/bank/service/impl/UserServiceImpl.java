@@ -10,7 +10,6 @@ import tech.reliab.course.sheplyakovia.bank.service.UserService;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Objects;
 import java.util.Random;
 
 public class UserServiceImpl implements UserService {
@@ -143,5 +142,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deletePaymentAccount(int id, PaymentAccount paymentAccount) {
         this.users.get(id).getPaymentAccounts().remove(paymentAccount);
+    }
+
+    /**
+     *
+     * @return Всех пользователей.
+     */
+    @Override
+    public ArrayList<User> getUsers() {
+        return this.users;
     }
 }
