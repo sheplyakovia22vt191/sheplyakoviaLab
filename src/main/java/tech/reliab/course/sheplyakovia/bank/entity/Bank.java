@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @Builder
 public class Bank implements Entity{
     /** Id банка */
-    private long id;
+    private int id;
 
     /** Имя банка */
     private String name;
@@ -39,10 +39,10 @@ public class Bank implements Entity{
 
     @Override
     public String toString() {
-        return "Bank{" +
+        return "Bank {" +
                 "id = " + id +
                 ", name = '" + name + '\'' +
-                ", offices count =" + bankOffices.size() +
+                ", offices count = " + bankOffices.size() +
                 ", atms count = " + bankATMS.size() +
                 ", employees count = " + employees.size() +
                 ", clients count = " + clients.size() +

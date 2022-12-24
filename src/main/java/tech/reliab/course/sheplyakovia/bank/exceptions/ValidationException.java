@@ -1,8 +1,16 @@
 package tech.reliab.course.sheplyakovia.bank.exceptions;
 
-public class ValidationException extends RuntimeException{
+public class ValidationException extends RuntimeException {
     private final String fieldName;
     private final Object value;
+
+    /**
+     * Ошибка валидации.
+     *
+     * @param objectName Имя объекта.
+     * @param fieldName  Поле.
+     * @param value      Значение.
+     */
     public ValidationException(String objectName, String fieldName, Object value) {
         super(objectName);
         this.fieldName = fieldName;

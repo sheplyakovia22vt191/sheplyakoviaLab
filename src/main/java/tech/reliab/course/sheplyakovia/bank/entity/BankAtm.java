@@ -12,7 +12,7 @@ import tech.reliab.course.sheplyakovia.bank.enums.WorkStatus;
 @Builder
 public class BankAtm implements Entity{
     /** Id банкомата */
-    private long id;
+    private int id;
 
     /** Имя банкомата */
     private String name;
@@ -46,12 +46,12 @@ public class BankAtm implements Entity{
 
     @Override
     public String toString() {
-        return "BankAtm{" +
+        return "BankAtm {" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address=" + address +
                 ", status=" + status +
-                ", bank=" + bank +
+                ", bank=" + bank.getName() +
                 ", location=" + location +
                 ", servingEmployee=" + servingEmployee +
                 ", extradition=" + extradition +

@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Builder
 public class CreditAccount implements Entity{
     /** Id кредитного счета */
-    private long id;
+    private int id;
 
     /** Пользователь, за которым закреплен этот кредитный счет */
     private User user;
@@ -49,7 +49,7 @@ public class CreditAccount implements Entity{
 
     @Override
     public String toString() {
-        return "CreditAccount{" +
+        return "CreditAccount {" +
                 "id=" + id +
                 ", creditStart=" + creditStart +
                 ", creditEnd=" + creditEnd +

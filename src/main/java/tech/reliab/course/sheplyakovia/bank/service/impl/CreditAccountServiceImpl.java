@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class CreditAccountServiceImpl implements CreditAccountService {
 
-    private long id = 0;
+    private int id = 0;
     private final ArrayList<CreditAccount> creditAccounts = new ArrayList<>(0);
 
 
@@ -19,7 +19,7 @@ public class CreditAccountServiceImpl implements CreditAccountService {
      * @param user           Пользователь кредитного счета.
      * @param bankName       Имя банка.
      * @param creditBegin    Дата начала кредита
-     * @param creditEnd      /** Дата окончания кредита
+     * @param creditEnd      Дата окончания кредита
      * @param creditAmount   Сумма кредита.
      * @param mouthPayment   Ежемесячный платеж.
      * @param employee       Сотрудник, который выдал кредит.
@@ -87,5 +87,14 @@ public class CreditAccountServiceImpl implements CreditAccountService {
     public void delete(int userId, int id, CreditAccount creditAccount, User user) {
         user.getCreditAccounts().remove(userId);
         this.creditAccounts.remove(creditAccount);
+    }
+
+    /**
+     *
+     * @return Все кредитные счета.
+     */
+    @Override
+    public ArrayList<CreditAccount> getCreditAccounts() {
+        return this.creditAccounts;
     }
 }

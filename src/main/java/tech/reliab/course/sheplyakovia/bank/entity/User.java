@@ -3,7 +3,6 @@ package tech.reliab.course.sheplyakovia.bank.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import tech.reliab.course.sheplyakovia.bank.entity.auxiliary.FCs;
 
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import java.util.Date;
 public class User implements Entity{
 
     /** Id клиента */
-    private long id;
+    private int id;
 
     /** ФИО */
     private FCs fcs;
@@ -43,15 +42,15 @@ public class User implements Entity{
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", fcs=" + fcs +
-                ", birthday=" + birthday +
-                ", workPlace='" + workPlace + '\'' +
-                ", income=" + income +
-                ", banks=" + banks +
-                ", creditAccounts=" + creditAccounts +
-                ", paymentAccounts=" + paymentAccounts +
+        return "User {" +
+                "id= " + id +
+                ", fcs= " + fcs +
+                ", birthday= " + birthday +
+                ", workPlace= " + workPlace + '\'' +
+                ", income= " + income +
+                ", banks count = " + banks.size() +
+                ", creditAccounts count =" + creditAccounts.size() +
+                ", paymentAccounts count=" + paymentAccounts.size() +
                 ", rate=" + rate +
                 '}';
     }
