@@ -1,5 +1,6 @@
 package tech.reliab.course.sheplyakovia.bank;
 
+import tech.reliab.course.sheplyakovia.bank.entity.BankOffice;
 import tech.reliab.course.sheplyakovia.bank.entity.auxiliary.Address;
 import tech.reliab.course.sheplyakovia.bank.entity.auxiliary.FCs;
 import tech.reliab.course.sheplyakovia.bank.service.*;
@@ -43,28 +44,34 @@ public class ObjectsCreator {
     public void create() {
         var random = new Random();
 
-        int bankCount = random.nextInt(20, 50);
+        int bankCount = 10;
 
         for (int i = 0; i < bankCount; i++) {
-            this.bankService.createBank("Bank " + i);
+            var bank = this.bankService.createBank("Bank " + i);
 
-            int bankOfficeCount = random.nextInt(10, 15);
+            int bankOfficeCount = 15;
 
             for (int j = 0; j < bankOfficeCount; j++) {
-                this.bankOfficeService.create(
-                        "BankOffice" + i + j,
+                var bankOffice = this.bankOfficeService.create(
+                        "BankOffice" + j,
                         this.address,
-                        this.bankService.getBank(i)
+                        bank
                 );
 
-                int employeesCount = random.nextInt(100, 200);
+                userService.create(
+                        new FCs("Igor", "Sheplyakov" + i, "Alexandrovich" + j),
+                        "Programmer" + i + j,
+                        bank
+                );
+
+                int employeesCount = 10;
 
                 for (int k = 0; k < employeesCount; k++) {
                     this.employeeService.create(
-                            new FCs("Ivan", "Ivanov", "Ivanovich"),
+                            new FCs("Ivan", "Ivanov" + i + j + k, "Ivanovich"),
                             "Manager",
-                            this.bankService.getBank(i),
-                            this.bankOfficeService.getBankOffice(j)
+                            bank,
+                            bankOffice
                     );
                 }
             }

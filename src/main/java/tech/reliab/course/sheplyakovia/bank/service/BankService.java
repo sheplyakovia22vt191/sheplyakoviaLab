@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public interface BankService {
 
-    void createBank(String name);
+    Bank createBank(String name);
     Bank getBank(int id);
     void update(int id, Bank bank);
     void delete(int id);

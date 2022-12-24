@@ -23,7 +23,7 @@ public class AtmServiceImpl implements AtmService {
      * @param employee Обслуживающий сотрудник.
      */
     @Override
-    public void create(String name, Bank bank, BankOffice office, Employee employee) {
+    public BankAtm create(String name, Bank bank, BankOffice office, Employee employee) {
         Random random = new Random();
 
         BankAtm bankAtm = BankAtm
@@ -43,6 +43,7 @@ public class AtmServiceImpl implements AtmService {
         bank.getBankATMS().add(bankAtm);
         office.getBankAtms().add(bankAtm);
 
+        return bankAtm;
     }
 
     /**

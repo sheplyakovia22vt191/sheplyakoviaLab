@@ -3,11 +3,11 @@ package tech.reliab.course.sheplyakovia.bank.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import tech.reliab.course.sheplyakovia.bank.entity.auxiliary.Address;
 import tech.reliab.course.sheplyakovia.bank.enums.WorkStatus;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -72,5 +72,18 @@ public class BankOffice implements Entity{
     @Override
     public String getSimpleName() {
         return "BankOffice";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BankOffice that = (BankOffice) o;
+        return id == that.id && placeAtmAvailable == that.placeAtmAvailable && creditAvailable == that.creditAvailable && extradition == that.extradition && introduction == that.introduction && moneyAmount == that.moneyAmount && rentCost == that.rentCost && Objects.equals(name, that.name) && Objects.equals(address, that.address) && status == that.status && Objects.equals(bankAtms, that.bankAtms) && Objects.equals(bank, that.bank);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, address, status, placeAtmAvailable, bankAtms, creditAvailable, extradition, introduction, moneyAmount, rentCost, bank);
     }
 }

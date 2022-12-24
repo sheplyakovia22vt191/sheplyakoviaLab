@@ -6,7 +6,6 @@ import tech.reliab.course.sheplyakovia.bank.entity.User;
 import tech.reliab.course.sheplyakovia.bank.service.PaymentAccountService;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Random;
 
 public class PaymentAccountServiceImpl implements PaymentAccountService {
@@ -16,12 +15,12 @@ public class PaymentAccountServiceImpl implements PaymentAccountService {
 
     /**
      * Создает объект платёжного счета.
-     *
-     * @param user Воаделец платёжного счета.
+     *  @param user Воаделец платёжного счета.
      * @param bank Банк, в котором открыт платёжный счет.
+     * @return
      */
     @Override
-    public void create(User user, Bank bank) {
+    public PaymentAccount create(User user, Bank bank) {
         Random random = new Random();
 
         PaymentAccount paymentAccount = PaymentAccount
@@ -34,6 +33,7 @@ public class PaymentAccountServiceImpl implements PaymentAccountService {
 
         user.getPaymentAccounts().add(paymentAccount);
         paymentAccounts.add(paymentAccount);
+        return paymentAccount;
     }
 
     /**
