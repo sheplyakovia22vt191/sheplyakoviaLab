@@ -9,7 +9,6 @@ import tech.reliab.course.sheplyakovia.bank.service.EmployeeService;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Objects;
 import java.util.Random;
 
 public class EmployeeServiceImpl implements EmployeeService {
@@ -18,7 +17,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final ArrayList<Employee> employees = new ArrayList<>(0);
 
     @Override
-    public void create(FCs fcs, String post, Bank bank, BankOffice office) {
+    public Employee create(FCs fcs, String post, Bank bank, BankOffice office) {
 
         Random random = new Random();
         Employee employee = Employee
@@ -27,15 +26,16 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .fcs(fcs)
                 .birthday(Date.from(Instant.now()))
                 .post(post)
-                .bank(office.getBank())
+                .bank(bank)
                 .isRemotely(random.nextBoolean())
                 .office(office)
-                .creditAvailable(true)
+                .creditAvailable(random.nextBoolean())
                 .salary(random.nextInt(100_000))
                 .build();
 
         bank.getEmployees().add(employee);
         this.employees.add(employee);
+        return employee;
     }
 
     /**

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -55,5 +56,18 @@ public class Bank implements Entity{
     @Override
     public String getSimpleName() {
         return "Bank";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bank bank = (Bank) o;
+        return id == bank.id && rate == bank.rate && moneyAmount == bank.moneyAmount && interestRate == bank.interestRate && Objects.equals(name, bank.name) && Objects.equals(bankOffices, bank.bankOffices) && Objects.equals(bankATMS, bank.bankATMS) && Objects.equals(employees, bank.employees) && Objects.equals(clients, bank.clients);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, bankOffices, bankATMS, employees, clients, rate, moneyAmount, interestRate);
     }
 }

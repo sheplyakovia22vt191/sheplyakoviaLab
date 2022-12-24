@@ -15,8 +15,7 @@ public class CreditAccountServiceImpl implements CreditAccountService {
 
     /**
      * Создает объект кредитного счета.
-     *
-     * @param user           Пользователь кредитного счета.
+     *  @param user           Пользователь кредитного счета.
      * @param bankName       Имя банка.
      * @param creditBegin    Дата начала кредита
      * @param creditEnd      Дата окончания кредита
@@ -25,11 +24,12 @@ public class CreditAccountServiceImpl implements CreditAccountService {
      * @param employee       Сотрудник, который выдал кредит.
      * @param paymentAccount Платежный счет в банке с которого будет осуществляться погашени данного кредита
      * @param bank           Банк, где взят кредит
+     * @return
      */
     @Override
-    public void create(User user, String bankName, LocalDate creditBegin, LocalDate creditEnd,
-                       Long creditAmount, Long mouthPayment, Employee employee,
-                       PaymentAccount paymentAccount, Bank bank) {
+    public CreditAccount create(User user, String bankName, LocalDate creditBegin, LocalDate creditEnd,
+                                Long creditAmount, Long mouthPayment, Employee employee,
+                                PaymentAccount paymentAccount, Bank bank) {
 
         CreditAccount creditAccount = CreditAccount
                 .builder()
@@ -48,6 +48,7 @@ public class CreditAccountServiceImpl implements CreditAccountService {
 
         user.getCreditAccounts().add(creditAccount);
         creditAccounts.add(creditAccount);
+        return creditAccount;
     }
 
     /**

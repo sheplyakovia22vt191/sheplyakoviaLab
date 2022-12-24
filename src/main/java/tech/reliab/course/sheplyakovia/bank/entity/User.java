@@ -7,6 +7,7 @@ import tech.reliab.course.sheplyakovia.bank.entity.auxiliary.FCs;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -58,5 +59,18 @@ public class User implements Entity{
     @Override
     public String getSimpleName() {
         return "User";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && income == user.income && rate == user.rate && Objects.equals(fcs, user.fcs) && Objects.equals(birthday, user.birthday) && Objects.equals(workPlace, user.workPlace) && Objects.equals(banks, user.banks) && Objects.equals(creditAccounts, user.creditAccounts) && Objects.equals(paymentAccounts, user.paymentAccounts);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, fcs, birthday, workPlace, income, banks, creditAccounts, paymentAccounts, rate);
     }
 }

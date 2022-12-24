@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -63,5 +64,18 @@ public class CreditAccount implements Entity{
     @Override
     public String getSimpleName() {
         return "CreditAccount";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CreditAccount that = (CreditAccount) o;
+        return id == that.id && creditMonthCount == that.creditMonthCount && creditAmount == that.creditAmount && monthPayment == that.monthPayment && interestRate == that.interestRate && Objects.equals(user, that.user) && Objects.equals(bank, that.bank) && Objects.equals(creditStart, that.creditStart) && Objects.equals(creditEnd, that.creditEnd) && Objects.equals(creditor, that.creditor) && Objects.equals(paymentAccount, that.paymentAccount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, bank, creditStart, creditEnd, creditMonthCount, creditAmount, monthPayment, interestRate, creditor, paymentAccount);
     }
 }

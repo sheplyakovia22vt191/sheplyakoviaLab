@@ -7,6 +7,7 @@ import lombok.ToString;
 import tech.reliab.course.sheplyakovia.bank.entity.auxiliary.FCs;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -66,7 +67,7 @@ public class Employee implements Entity {
                 ", post='" + post + '\'' +
                 ", bank=" + bank.getName() +
                 ", isRemotely=" + isRemotely +
-                ", office=" + office.getName() +
+                ", office=" + office +
                 ", creditAvailable=" + creditAvailable +
                 ", salary=" + salary +
                 '}';
@@ -75,5 +76,18 @@ public class Employee implements Entity {
     @Override
     public String getSimpleName() {
         return "Employee";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return id == employee.id && isRemotely == employee.isRemotely && creditAvailable == employee.creditAvailable && salary == employee.salary && Objects.equals(fcs, employee.fcs) && Objects.equals(birthday, employee.birthday) && Objects.equals(post, employee.post) && Objects.equals(bank, employee.bank) && Objects.equals(office, employee.office);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, fcs, birthday, post, bank, isRemotely, office, creditAvailable, salary);
     }
 }

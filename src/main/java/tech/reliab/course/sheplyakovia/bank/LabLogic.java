@@ -16,8 +16,6 @@ public class LabLogic {
     private final Scanner scanner = new Scanner(System.in);
 
     private final static int BANK_COUNT = 5;
-    private final static int ATM_COUNT = 3;
-    private final static int EMPLOYEES_COUNT = 5;
     private final Address address;
 
     public LabLogic() {
@@ -39,10 +37,10 @@ public class LabLogic {
             choose = scanner.nextInt();
 
             switch (choose) {
-                case 1 -> lab1();
-                case 2 -> lab2();
-                case 3 -> lab3();
-                case 4 -> lab4();
+                case 1 -> this.lab1();
+                case 2 -> this.lab2();
+                case 3 -> this.lab3();
+                case 4 -> this.lab4();
             }
         }
 
@@ -155,81 +153,136 @@ public class LabLogic {
 
         objectsCreator.create();
 
-        Bank userBank = objectsCreator.bankService.getBank(0);
+        int choose = -1;
+        while (choose != 0) {
 
-        for (var bank : objectsCreator.bankService.getBanks()) {
-            int bankUseFullAverage = bank.getEmployees().size() + bank.getBankATMS().size() + bank.getBankOffices().size();
-            int userBankUseFullAverage = userBank.getEmployees().size() + userBank.getBankATMS().size() + userBank.getBankOffices().size();
+            System.out.println(
+                    """
+                            Choose one of the actions:
+                            1 - Show list of banks
+                            2 - Show list of all clients
+                            3 - Show information about the bank by id
+                            4 - Show information about the user by id
+                            5 - Request a loan
+                            0 - Exit
+                            """
+            );
 
-            if ((bankUseFullAverage > userBankUseFullAverage) && (bank.getInterestRate() > userBank.getInterestRate())) {
-                userBank = bank;
-            }
-        }
+            choose = scanner.nextInt();
 
-        UserService userService = new UserServiceImpl();
-        userService.create(
-                new FCs("Igor", "Sheplyakov", "Alexandrovixh"),
-                "Programmer",
-                userBank
-        );
-
-        User user = userService.getUser(0);
-
-        long userMoneyAmount = 100_000L;
-
-        BankOffice userBankOffice = userBank.getBankOffices().get(0);
-
-        for (var bankOffice : userBank.getBankOffices()) {
-            if (bankOffice.getStatus() == WorkStatus.WORKING) {
-                if (bankOffice.isCreditAvailable()) {
-                    if (bankOffice.getMoneyAmount() > userMoneyAmount) {
-                        userBankOffice = bankOffice;
+            switch (choose) {
+                case 1 -> {
+                    for (var bank : objectsCreator.bankService.getBanks()) {
+                        System.out.println(bank);
                     }
                 }
-            }
-        }
 
-//        objectsCreator.employeeService.create(
-//                new FCs("Dmitry", "Ampilogov", "Vladimirovich"),
-//                "Loh",
-//                userBank,
-//                userBankOffice
-//        );
+                case 2 -> {
+                    for (var user : objectsCreator.userService.getUsers()) {
+                        System.out.println(user);
+                    }
+                }
 
-        Employee userEmployee = userBank.getEmployees().get(0);
-        for (var employee : userBank.getEmployees()) {
-            System.out.println(employee);
-            if (employee.getOffice() == userBankOffice) {
-                if (employee.isCreditAvailable()) {
-                    userEmployee = employee;
+                case 3 -> {
+                    // TODO Добавить NotFoundException
+                    System.out.print("Enter the bank ID: ");
+                    int id = scanner.nextInt();
+
+                    var bank = objectsCreator.bankService.getBank(id);
+                    System.out.println(bank);
+                }
+
+                case 4 -> {
+                    System.out.print("Enter the client ID: ");
+                    int id = scanner.nextInt();
+
+                    var user = objectsCreator.userService.getUser(id);
+                    System.out.println(user);
+                }
+
+                 case 5 -> {
+                     Bank userBank = objectsCreator.bankService.getBank(0);
+
+                     for (var bank : objectsCreator.bankService.getBanks()) {
+                         int bankUseFullAverage = bank.getEmployees().size() + bank.getBankATMS().size() + bank.getBankOffices().size();
+                         int userBankUseFullAverage = userBank.getEmployees().size() + userBank.getBankATMS().size() + userBank.getBankOffices().size();
+
+                         if ((bankUseFullAverage > userBankUseFullAverage) || (bank.getInterestRate() >= userBank.getInterestRate())) {
+                             userBank = bank;
+                         }
+                     }
+
+                     UserService userService = new UserServiceImpl();
+                     userService.create(
+                             new FCs("Igor", "Sheplyakov", "Alexandrovixh"),
+                             "Programmer",
+                             userBank
+                     );
+
+                     User user = userService.getUser(0);
+
+                     long userMoneyAmount = 100_000L;
+
+                     BankOffice userBankOffice = userBank.getBankOffices().get(0);
+
+                     for (var bankOffice : userBank.getBankOffices()) {
+                         if (bankOffice.getStatus() == WorkStatus.WORKING) {
+                             if (bankOffice.isCreditAvailable()) {
+                                 if (bankOffice.getMoneyAmount() > userMoneyAmount) {
+                                     userBankOffice = bankOffice;
+                                 }
+                             }
+                         }
+                     }
+
+                     Employee userEmployee = userBank.getEmployees().get(0);
+                     for (var employee : userBank.getEmployees()) {
+                         if (employee.getOffice().equals(userBankOffice)) {
+                             if (employee.isCreditAvailable()) {
+                                 userEmployee = employee;
+                                 break;
+                             }
+                         }
+                     }
+
+                     PaymentAccountService paymentAccountService = new PaymentAccountServiceImpl();
+                     paymentAccountService.create(user, userBank);
+                     // TODO Добавить CrudOperationException
+                     PaymentAccount userPaymentAccount = paymentAccountService.getPaymentAccount(0);
+
+                     if ((user.getRate() < 5_000) && (user.getRate() > 50)) {
+                         System.out.println("The loan is not approved.");
+                         // TODO Добавить BankTransactionException
+                     } else {
+                         System.out.println("Loan approved");
+
+                         CreditAccountService creditAccountService = new CreditAccountServiceImpl();
+                         creditAccountService.create(
+                                 user,
+                                 userBank.getName(),
+                                 LocalDate.now(),
+                                 LocalDate.of(2023, 5, 24),
+                                 userMoneyAmount,
+                                 10_000L,
+                                 userEmployee,
+                                 userPaymentAccount,
+                                 userBank
+                         );
+
+                         System.out.println("Loan info: ");
+                         System.out.println(user);
+                         System.out.println(creditAccountService.getCreditAccount(0));
+                         System.out.println(userBank);
+                         System.out.println(userBankOffice);
+                         System.out.println(userEmployee);
+                     }
+
+                 }
+
+                case 0 -> {
+                    return;
                 }
             }
-        }
-
-        PaymentAccountService paymentAccountService = new PaymentAccountServiceImpl();
-        paymentAccountService.create(user, userBank);
-        PaymentAccount userPaymentAccount = paymentAccountService.getPaymentAccount(0);
-
-        if ((user.getRate() < 5_000) && (user.getRate() > 50)) {
-            System.out.println("Fuck you, bitch. I will not give a credit.");
-        } else {
-            CreditAccountService creditAccountService = new CreditAccountServiceImpl();
-            creditAccountService.create(
-                    user,
-                    userBank.getName(),
-                    LocalDate.now(),
-                    LocalDate.of(2023, 5, 24),
-                    userMoneyAmount,
-                    10_000L,
-                    userEmployee,
-                    userPaymentAccount,
-                    userBank
-            );
-            System.out.println(user);
-            System.out.println(creditAccountService.getCreditAccount(0));
-            System.out.println(userBank);
-            System.out.println(userBankOffice);
-            System.out.println(userEmployee);
         }
     }
 

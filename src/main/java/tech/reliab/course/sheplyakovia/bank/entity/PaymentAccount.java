@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Objects;
+
 @Getter
 @Setter
 @Builder
@@ -32,5 +34,18 @@ public class PaymentAccount implements Entity{
     @Override
     public String getSimpleName() {
         return "PaymentAccount";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PaymentAccount that = (PaymentAccount) o;
+        return id == that.id && moneyAmount == that.moneyAmount && Objects.equals(user, that.user) && Objects.equals(bank, that.bank);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, bank, moneyAmount);
     }
 }

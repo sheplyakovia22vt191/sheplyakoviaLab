@@ -15,9 +15,10 @@ public class BankServiceImpl implements BankService {
      * Создает объект банка.
      *
      * @param name Имя банка.
+     * @return
      */
     @Override
-    public void createBank(String name) {
+    public Bank createBank(String name) {
         Random random = new Random();
         int rate = random.nextInt(100);
 
@@ -35,6 +36,7 @@ public class BankServiceImpl implements BankService {
                 .build();
 
         this.banks.add(bank);
+        return bank;
     }
 
     /**

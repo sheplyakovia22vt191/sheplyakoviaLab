@@ -7,6 +7,8 @@ import lombok.ToString;
 import tech.reliab.course.sheplyakovia.bank.entity.auxiliary.Address;
 import tech.reliab.course.sheplyakovia.bank.enums.WorkStatus;
 
+import java.util.Objects;
+
 @Getter
 @Setter
 @Builder
@@ -64,5 +66,18 @@ public class BankAtm implements Entity{
     @Override
     public String getSimpleName() {
         return "BankAtm";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BankAtm bankAtm = (BankAtm) o;
+        return id == bankAtm.id && extradition == bankAtm.extradition && introduction == bankAtm.introduction && moneyAmount == bankAtm.moneyAmount && maintenanceCost == bankAtm.maintenanceCost && Objects.equals(name, bankAtm.name) && Objects.equals(address, bankAtm.address) && status == bankAtm.status && Objects.equals(bank, bankAtm.bank) && Objects.equals(location, bankAtm.location) && Objects.equals(servingEmployee, bankAtm.servingEmployee);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, address, status, bank, location, servingEmployee, extradition, introduction, moneyAmount, maintenanceCost);
     }
 }

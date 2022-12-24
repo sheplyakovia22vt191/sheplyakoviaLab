@@ -22,7 +22,7 @@ public class BankOfficeServiceImpl implements BankOfficeService {
      * @param bank    Банк, к которому пренадлежит банковский офис.
      */
     @Override
-    public void create(String name, Address address, Bank bank) {
+    public BankOffice create(String name, Address address, Bank bank) {
         Random random = new Random();
 
         BankOffice bankOffice = BankOffice
@@ -43,6 +43,8 @@ public class BankOfficeServiceImpl implements BankOfficeService {
 
         bank.getBankOffices().add(bankOffice);
         bankOffices.add(bankOffice);
+
+        return bankOffice;
     }
 
     /**
