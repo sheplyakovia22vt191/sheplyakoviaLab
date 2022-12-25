@@ -5,23 +5,21 @@ import tech.reliab.course.sheplyakovia.bank.enums.CrudOperations;
 
 public class CrudOperationException extends RuntimeException {
     private final CrudOperations operation;
-    private final Entity entity;
+    private final String entityName;
 
     /**
      * Ошибка при выполнении метода.
      *
-     * @param message   Сообщение ошибки.
-     * @param entity    Сущность.
-     * @param operation CRUD операция.
+     * @param entityName Сущность.
+     * @param operation  CRUD операция.
      */
-    CrudOperationException(String message, Entity entity, CrudOperations operation) {
-        super(message);
-        this.entity = entity;
+    public CrudOperationException(String entityName, CrudOperations operation) {
+        this.entityName = entityName;
         this.operation = operation;
     }
 
     @Override
     public String getMessage() {
-        return "Ошибка при выполнении метода \"" + operation.toString() + "\" над сущностью " + entity.getSimpleName() + ": " + super.getMessage();
+        return "Error operation: \"" + operation.toString() + "\" for " + entityName;
     }
 }
