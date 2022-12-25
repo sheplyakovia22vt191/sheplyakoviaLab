@@ -5,12 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @Getter
 @Setter
 @Builder
-public class PaymentAccount implements Entity{
+public class PaymentAccount implements Entity, Serializable {
     /** Id платёжного счета */
     private int id;
 
@@ -22,14 +23,6 @@ public class PaymentAccount implements Entity{
 
     /** Сумма, которая лежит в данный момент на счету */
     private int moneyAmount;
-
-    @Override
-    public String toString() {
-        return "PaymentAccount {" +
-                "id=" + id +
-                ", moneyAmount=" + moneyAmount +
-                '}';
-    }
 
     @Override
     public String getSimpleName() {
@@ -47,5 +40,15 @@ public class PaymentAccount implements Entity{
     @Override
     public int hashCode() {
         return Objects.hash(id, user, bank, moneyAmount);
+    }
+
+    @Override
+    public String toString() {
+        return "PaymentAccount{" +
+                "id=" + id +
+                ", user=" + user.getId() +
+                ", bank=" + bank.getId() +
+                ", moneyAmount=" + moneyAmount +
+                '}';
     }
 }

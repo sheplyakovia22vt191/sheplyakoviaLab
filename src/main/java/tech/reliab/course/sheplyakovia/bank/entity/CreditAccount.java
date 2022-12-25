@@ -5,13 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Getter
 @Setter
 @Builder
-public class CreditAccount implements Entity{
+public class CreditAccount implements Entity, Serializable {
     /** Id кредитного счета */
     private int id;
 
