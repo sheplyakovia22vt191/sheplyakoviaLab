@@ -25,4 +25,6 @@ public interface BankService {
     void deleteClient(int id, User user);
 
     ArrayList<Bank> getBanks();
+
+    void transferAccounts(PaymentAccount paymentAccount, int bankId);
 }

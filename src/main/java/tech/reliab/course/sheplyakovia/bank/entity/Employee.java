@@ -6,13 +6,14 @@ import lombok.Setter;
 import lombok.ToString;
 import tech.reliab.course.sheplyakovia.bank.entity.auxiliary.FCs;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 @Getter
 @Setter
 @Builder
-public class Employee implements Entity {
+public class Employee implements Entity, Serializable {
     /**
      * Id сотрудника
      */

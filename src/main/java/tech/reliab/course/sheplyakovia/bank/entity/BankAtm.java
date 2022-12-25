@@ -7,12 +7,13 @@ import lombok.ToString;
 import tech.reliab.course.sheplyakovia.bank.entity.auxiliary.Address;
 import tech.reliab.course.sheplyakovia.bank.enums.WorkStatus;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @Getter
 @Setter
 @Builder
-public class BankAtm implements Entity{
+public class BankAtm implements Entity, Serializable {
     /** Id банкомата */
     private int id;
 

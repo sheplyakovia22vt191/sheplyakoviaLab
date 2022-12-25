@@ -1,7 +1,10 @@
 package tech.reliab.course.sheplyakovia.bank.service.impl;
 
 import tech.reliab.course.sheplyakovia.bank.entity.*;
+import tech.reliab.course.sheplyakovia.bank.enums.CrudOperations;
+import tech.reliab.course.sheplyakovia.bank.exceptions.CrudOperationException;
 import tech.reliab.course.sheplyakovia.bank.service.BankService;
+import tech.reliab.course.sheplyakovia.bank.service.UserService;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -168,5 +171,23 @@ public class BankServiceImpl implements BankService {
     @Override
     public ArrayList<Bank> getBanks() {
         return this.banks;
+    }
+
+    @Override
+    public void transferAccounts(PaymentAccount paymentAccount, int bankId)  {
+
+        Bank newBank = this.banks.get(bankId);
+        if (newBank == null) {
+            throw new CrudOperationException(Bank.class.getSimpleName(), CrudOperations.Read);
+        }
+
+        if(paymentAccount.getBank().getId() == newBank.getId()) {
+            System.out.println("Аккаунт уже в этом банке");
+        }
+        else {
+            paymentAccount.getUser().getPaymentAccounts().remove(paymentAccount);
+            paymentAccount.setBank(newBank);
+            paymentAccount.getUser().getPaymentAccounts().add(paymentAccount);
+        }
     }
 }

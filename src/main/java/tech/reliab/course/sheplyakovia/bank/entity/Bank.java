@@ -4,13 +4,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
 @Getter
 @Setter
 @Builder
-public class Bank implements Entity{
+public class Bank implements Entity, Serializable {
     /** Id банка */
     private int id;
 

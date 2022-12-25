@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import tech.reliab.course.sheplyakovia.bank.entity.auxiliary.FCs;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
@@ -12,7 +13,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Builder
-public class User implements Entity{
+public class User implements Entity, Serializable {
 
     /** Id клиента */
     private int id;

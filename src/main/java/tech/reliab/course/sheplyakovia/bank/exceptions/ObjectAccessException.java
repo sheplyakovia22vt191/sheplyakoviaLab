@@ -19,6 +19,6 @@ public class ObjectAccessException extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return "Object accesse error \"" + entityName + "\", reason " + reason;
+        return "Object access error \"" + entityName + "\", reason " + reason;
     }
 }

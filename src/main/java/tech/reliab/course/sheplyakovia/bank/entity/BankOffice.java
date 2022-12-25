@@ -6,13 +6,14 @@ import lombok.Setter;
 import tech.reliab.course.sheplyakovia.bank.entity.auxiliary.Address;
 import tech.reliab.course.sheplyakovia.bank.enums.WorkStatus;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
 @Getter
 @Setter
 @Builder
-public class BankOffice implements Entity{
+public class BankOffice implements Entity, Serializable {
     /** Id банковского офиса */
     private int id;
 

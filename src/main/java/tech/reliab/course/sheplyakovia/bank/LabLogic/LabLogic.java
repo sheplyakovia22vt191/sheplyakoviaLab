@@ -40,6 +40,7 @@ public class LabLogic {
     }
 
     private void lab4() {
-        System.out.println("Lab 4");
+        Lab4 lab4 = new Lab4();
+        lab4.run();
     }
 }
