@@ -20,7 +20,7 @@ public class ObjectsCreator {
 
     private final Address address;
 
-    ObjectsCreator(
+    public ObjectsCreator(
             BankService bankService,
             AtmService atmService,
             BankOfficeService bankOfficeService,

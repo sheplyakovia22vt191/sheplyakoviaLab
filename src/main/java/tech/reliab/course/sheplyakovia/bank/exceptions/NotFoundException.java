@@ -4,21 +4,21 @@ import tech.reliab.course.sheplyakovia.bank.entity.Entity;
 
 public class NotFoundException extends RuntimeException {
     private final int id;
-    private final Entity entity;
+    private final String entityName;
 
     /**
      * Ошибка, возникающая при отсутсвии объекта класса.
      *
      * @param id     Id объекта.
-     * @param entity Объект.
+     * @param entityName Объект.
      */
-    public NotFoundException(int id, Entity entity) {
+    public NotFoundException(int id, String entityName) {
         this.id = id;
-        this.entity = entity;
+        this.entityName = entityName;
     }
 
     @Override
     public String getMessage() {
-        return "Object " + entity.getSimpleName() + " with id=" + id + " not found";
+        return "Object " + entityName + " with id=" + id + " not found";
     }
 }
