@@ -1,6 +1,7 @@
 package tech.reliab.course.sheplyakovia.bank.LabLogic;
 
 import tech.reliab.course.sheplyakovia.bank.ObjectsCreator;
+import tech.reliab.course.sheplyakovia.bank.entity.Bank;
 import tech.reliab.course.sheplyakovia.bank.entity.PaymentAccount;
 import tech.reliab.course.sheplyakovia.bank.entity.User;
 import tech.reliab.course.sheplyakovia.bank.entity.auxiliary.Address;
@@ -42,9 +43,13 @@ public class Lab4 {
             System.out.println(
                     """
                             Choose one of the actions:
-                            1 - Output a payment invoice by id to a file
-                            2 - Transfer all payment accounts from a file to another bank by id
-                            3 - Read info from file
+                            1 - Show list of banks
+                            2 - Show list of all clients
+                            3 - Show information about the bank by id
+                            4 - Show information about the user by id
+                            5 - Output a payment invoice by id to a file
+                            6 - Transfer all payment accounts from a file to another bank by id
+                            7 - Read info from file
                             0 - Exit
                             """
             );
@@ -52,14 +57,55 @@ public class Lab4 {
             choose = scanner.nextInt();
 
             switch (choose) {
-                case 1 -> outputPaymentInvoiceByIdToFile();
-                case 2 -> transferAllPaymentAccountsFromFileToAnotherBankById();
-                case 3 -> readInfoFromFile();
+                case 1 -> this.showAllBanks(objectsCreator.bankService.getBanks());
+                case 2 -> this.showAllUsers(objectsCreator.userService.getUsers());
+                case 3 -> this.showBank();
+                case 4 -> this.showUser();
+                case 5 -> outputPaymentInvoiceByIdToFile();
+                case 6 -> transferAllPaymentAccountsFromFileToAnotherBankById();
+                case 7 -> readInfoFromFile();
                 case 0 -> {
                     return;
                 }
             }
         }
+    }
+
+    private void showAllBanks(ArrayList<Bank> banks) {
+        for (var bank : banks) {
+            System.out.println(bank);
+        }
+    }
+
+    private void showAllUsers(ArrayList<User> users) {
+        for (var user : users) {
+            System.out.println(user);
+        }
+    }
+
+    private void showBank() {
+        System.out.print("Enter the bank ID: ");
+        int id = scanner.nextInt();
+
+        if (id >= objectsCreator.bankService.getBanks().size()) {
+            throw new NotFoundException(id, Bank.class.getSimpleName());
+        }
+
+
+        var bank = objectsCreator.bankService.getBank(id);
+        System.out.println(bank);
+    }
+
+    private void showUser() {
+        System.out.print("Enter the client ID: ");
+        int id = scanner.nextInt();
+
+        if (id >= objectsCreator.userService.getUsers().size()) {
+            throw new NotFoundException(id, User.class.getSimpleName());
+        }
+
+        var user = objectsCreator.userService.getUser(id);
+        System.out.println(user);
     }
 
     private void outputPaymentInvoiceByIdToFile() {
@@ -81,29 +127,10 @@ public class Lab4 {
         }
     }
 
-//    private void outputAllClientPaymentAccountsByIdToFile() {
-//    2 - Output all the client's payment accounts by id to a file
-//        System.out.println("Введите id клиента");
-//        var userId = scanner.nextInt();
-//
-//        System.out.println("Введите путь файла для записи");
-//        var fileName = scanner.nextLine();
-//
-//        var paymentAccounts = objectsCreator.userService.getUser(userId).getPaymentAccounts();
-//
-//        try {
-//            objectsCreator.paymentAccountService.writeToFile(paymentAccounts, fileName);
-//        } catch (IOException e) {
-//            System.out.println("Ошибка ввода: " + e);
-//        } catch (NotFoundException e) {
-//            System.out.println("There is no billing account with the ID you entered: " + e);
-//        }
-//    }
-
     private void transferAllPaymentAccountsFromFileToAnotherBankById() {
         ArrayList<PaymentAccount> paymentAccounts = null;
 
-        System.out.println("Enter the bank ID");
+        System.out.println("Enter the new bank ID");
         var bankId = scanner.nextInt();
 
         System.out.println("Enter the path of the file from which to take payment invoices");
@@ -114,9 +141,6 @@ public class Lab4 {
 
         try {
             paymentAccounts = objectsCreator.paymentAccountService.readFromFile(fileName);
-            for (var pa : paymentAccounts) {
-                System.out.println(pa);
-            }
         } catch (IOException e) {
             System.out.println("Input error: " + e);
         } catch (ClassNotFoundException e) {
