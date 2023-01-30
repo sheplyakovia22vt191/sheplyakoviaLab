@@ -1,107 +1,193 @@
 package tech.reliab.course.sheplyakovia.bank.service.impl;
 
-import tech.reliab.course.sheplyakovia.bank.entity.Bank;
+import tech.reliab.course.sheplyakovia.bank.entity.*;
+import tech.reliab.course.sheplyakovia.bank.enums.CrudOperations;
+import tech.reliab.course.sheplyakovia.bank.exceptions.CrudOperationException;
 import tech.reliab.course.sheplyakovia.bank.service.BankService;
+import tech.reliab.course.sheplyakovia.bank.service.UserService;
 
-import java.util.Objects;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class BankServiceImpl implements BankService {
 
-    private long id = 0;
-    private Bank bank;
+    private int id = 0;
+    private final ArrayList<Bank> banks = new ArrayList<>(0);
+
     /**
-     * создает банк
+     * Создает объект банка.
+     *
+     * @param name Имя банка.
+     * @return
      */
     @Override
     public Bank createBank(String name) {
         Random random = new Random();
         int rate = random.nextInt(100);
 
-        this.bank = Bank
+        Bank bank = Bank
                 .builder()
                 .id(id++)
                 .name(name)
-                .officeCount(0)
-                .atmCount(0)
-                .employeeCount(0)
-                .clientCount(0)
+                .bankOffices(new ArrayList<>())
+                .bankATMS(new ArrayList<>())
+                .employees(new ArrayList<>())
+                .clients(new ArrayList<>())
                 .rate(rate)
-                .moneyAmount(random.nextLong(1_000_000L))
+                .moneyAmount(random.nextLong(1_000_000L, 10_000_000L))
                 .interestRate((int) (20 - rate / 10D))
                 .build();
+
+        this.banks.add(bank);
         return bank;
     }
+
+    /**
+     * Возвращает объект банка.
+     *
+     * @param id Id банка.
+     * @return Объект банка.
+     */
     @Override
-    public Bank getBank() {
-        return this.bank;
+    public Bank getBank(int id) {
+        return this.banks.get(id);
+    }
+
+    /**
+     * Обновляет объект банка.
+     *
+     * @param id   Id банка.
+     * @param bank Новый объект банка.
+     */
+    @Override
+    public void update(int id, Bank bank) {
+        this.banks.set(id, bank);
+    }
+
+    /**
+     * Удаляет объект банка.
+     *
+     * @param id ID банка, который нужно удалить.
+     */
+    @Override
+    public void delete(int id) {
+        this.banks.remove(id);
+    }
+
+    /**
+     * Добавляет банкомат.
+     *
+     * @param id      Id банка.
+     * @param bankAtm Банкомат, который нужно добавить.
+     */
+    @Override
+    public void addAtm(int id, BankAtm bankAtm) {
+        this.banks.get(id).getBankATMS().add(bankAtm);
+    }
+
+    /**
+     * Удаляет банкомат в банке.
+     *
+     * @param id      Id банка.
+     * @param bankAtm Банкомат, который нужно удалить.
+     */
+    @Override
+    public void deleteAtm(int id, BankAtm bankAtm) {
+        this.banks.get(id).getBankATMS().remove(bankAtm);
+    }
+
+
+    /**
+     * Добавляет банковский офис.
+     *
+     * @param id         Id банка.
+     * @param bankOffice Банковский офис, который нужно добавить.
+     */
+    @Override
+    public void addBankOffice(int id, BankOffice bankOffice) {
+        this.banks.get(id).getBankOffices().add(bankOffice);
+    }
+
+
+    /**
+     * Удаляет банковский офис.
+     *
+     * @param id         Id банка.
+     * @param bankOffice Банковский офис, который нужно удалить.
+     */
+    @Override
+    public void deleteBankOffice(int id, BankOffice bankOffice) {
+        this.banks.get(id).getBankOffices().remove(bankOffice);
+    }
+
+    /**
+     * Добавляет сотрудника в банк.
+     *
+     * @param id       Id банка.
+     * @param employee Сотрудник, которого нужно добавить.
+     */
+    @Override
+    public void addEmployee(int id, Employee employee) {
+        this.banks.get(id).getEmployees().add(employee);
+    }
+
+    /**
+     * Удаляет сотрудника из банка.
+     *
+     * @param id       Id банка.
+     * @param employee Сотрудник, которого нужно удалить.
+     */
+    @Override
+    public void deleteEmployee(int id, Employee employee) {
+        this.banks.get(id).getEmployees().remove(employee);
+    }
+
+    /**
+     * Добавляет клиента в банк.
+     *
+     * @param id   Id банка.
+     * @param user Клиент, которого нужно добавить.
+     */
+    @Override
+    public void addClient(int id, User user) {
+        this.banks.get(id).getClients().add(user);
+    }
+
+    /**
+     * Удаляет клиента из банка.
+     *
+     * @param id   Id банка.
+     * @param user Клиент, которого нужно удалить.
+     */
+    @Override
+    public void deleteClient(int id, User user) {
+        this.banks.get(id).getClients().remove(user);
+    }
+
+    /**
+     *
+     * @return Все банки.
+     */
+    @Override
+    public ArrayList<Bank> getBanks() {
+        return this.banks;
     }
 
     @Override
-    public void update(Bank bank) {
-        this.bank = bank;
-    }
+    public void transferAccounts(PaymentAccount paymentAccount, int bankId)  {
 
-    @Override
-    public void delete(Bank bank) {
-        if(Objects.equals(this.bank, bank)) {
-            this.bank = null;
+        Bank newBank = this.banks.get(bankId);
+        if (newBank == null) {
+            throw new CrudOperationException(Bank.class.getSimpleName(), CrudOperations.Read);
         }
-    }
 
-    @Override
-    public void addAtm(Bank bank) {
-        int bankAtmCount = bank.getAtmCount();
-        bank.setAtmCount(++bankAtmCount);
-        this.update(bank);
-    }
-
-    @Override
-    public void deleteAtm(Bank bank) {
-        int bankAtmCount = bank.getAtmCount();
-        bank.setAtmCount(--bankAtmCount);
-        this.update(bank);
-    }
-
-    @Override
-    public void addBankOffice(Bank bank) {
-        int officeCount = bank.getOfficeCount();
-        bank.setOfficeCount(++officeCount);
-        this.update(bank);
-    }
-
-    @Override
-    public void deleteBankOffice(Bank bank) {
-        int officeCount = bank.getOfficeCount();
-        bank.setOfficeCount(--officeCount);
-        this.update(bank);
-    }
-
-    @Override
-    public void addEmployee(Bank bank) {
-        int employeeCount = bank.getEmployeeCount();
-        bank.setEmployeeCount(++employeeCount);
-        this.update(bank);
-    }
-
-    @Override
-    public void deleteEmployee(Bank bank) {
-        var employeeCount = bank.getEmployeeCount();
-        bank.setEmployeeCount(--employeeCount);
-        this.update(bank);
-    }
-
-    @Override
-    public void addClient(Bank bank) {
-        int clientCount = bank.getClientCount();
-        bank.setClientCount(++clientCount);
-        this.update(bank);
-    }
-
-    @Override
-    public void deleteClient(Bank bank) {
-        int clientCount = bank.getClientCount();
-        bank.setClientCount(--clientCount);
-        this.update(bank);
+        if(paymentAccount.getBank().getId() == newBank.getId()) {
+            System.out.println("Аккаунт уже в этом банке");
+        }
+        else {
+            paymentAccount.getUser().getPaymentAccounts().remove(paymentAccount);
+            paymentAccount.setBank(newBank);
+            paymentAccount.getUser().getPaymentAccounts().add(paymentAccount);
+        }
     }
 }

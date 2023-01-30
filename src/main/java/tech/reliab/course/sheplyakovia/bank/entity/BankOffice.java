@@ -3,17 +3,19 @@ package tech.reliab.course.sheplyakovia.bank.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import tech.reliab.course.sheplyakovia.bank.entity.auxiliary.Address;
 import tech.reliab.course.sheplyakovia.bank.enums.WorkStatus;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Objects;
+
 @Getter
 @Setter
-@ToString
 @Builder
-public class BankOffice {
+public class BankOffice implements Entity, Serializable {
     /** Id банковского офиса */
-    private long id;
+    private int id;
 
     /** Название офиса */
     private String name;
@@ -27,8 +29,10 @@ public class BankOffice {
     /** Можно ли разместить банкомат? */
     private boolean placeAtmAvailable;
 
-    /** Кол-во банкоматов в данном офисе */
-    private int atmCount;
+    /** Банкоматы */
+    private ArrayList<BankAtm> bankAtms;
+
+
 
     /** Можно ли оформить кредит в данном офисе? */
     private boolean creditAvailable;
@@ -47,4 +51,40 @@ public class BankOffice {
 
     /** Банк */
     private Bank bank;
+
+    @Override
+    public String toString() {
+        return "BankOffice {" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", bank=" + bank.getName() +
+                ", address=" + address +
+                ", status=" + status +
+                ", placeAtmAvailable=" + placeAtmAvailable +
+                ", bankAtms count = " + bankAtms.size() +
+                ", creditAvailable=" + creditAvailable +
+                ", extradition=" + extradition +
+                ", introduction=" + introduction +
+                ", moneyAmount=" + moneyAmount +
+                ", rentCost=" + rentCost +
+                '}';
+    }
+
+    @Override
+    public String getSimpleName() {
+        return "BankOffice";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BankOffice that = (BankOffice) o;
+        return id == that.id && placeAtmAvailable == that.placeAtmAvailable && creditAvailable == that.creditAvailable && extradition == that.extradition && introduction == that.introduction && moneyAmount == that.moneyAmount && rentCost == that.rentCost && Objects.equals(name, that.name) && Objects.equals(address, that.address) && status == that.status && Objects.equals(bankAtms, that.bankAtms) && Objects.equals(bank, that.bank);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, address, status, placeAtmAvailable, bankAtms, creditAvailable, extradition, introduction, moneyAmount, rentCost, bank);
+    }
 }

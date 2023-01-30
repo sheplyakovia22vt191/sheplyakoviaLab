@@ -7,20 +7,20 @@ import tech.reliab.course.sheplyakovia.bank.entity.auxiliary.FCs;
 import tech.reliab.course.sheplyakovia.bank.service.EmployeeService;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Objects;
 import java.util.Random;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private Employee employee;
-    private Long id = 0L;
+    private int id = 0;
+    private final ArrayList<Employee> employees = new ArrayList<>(0);
 
     @Override
     public Employee create(FCs fcs, String post, Bank bank, BankOffice office) {
 
         Random random = new Random();
-        employee = Employee
+        Employee employee = Employee
                 .builder()
                 .id(this.id++)
                 .fcs(fcs)
@@ -32,23 +32,50 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .creditAvailable(random.nextBoolean())
                 .salary(random.nextInt(100_000))
                 .build();
+
+        bank.getEmployees().add(employee);
+        this.employees.add(employee);
         return employee;
     }
 
+    /**
+     * Возвращает объект сотрудника.
+     *
+     * @param id Id сотрудника.
+     * @return Объект сотрудника.
+     */
     @Override
-    public Employee getEmployee() {
-        return this.employee;
+    public Employee getEmployee(int id) {
+        return this.employees.get(id);
     }
 
+    /**
+     * Обновляет объект сотрудника.
+     *
+     * @param id       Id сотрудника.
+     * @param employee Объект сотрудника.
+     */
     @Override
-    public void update(Employee employee) {
-        this.employee = employee;
+    public void update(int id, Employee employee) {
+        this.employees.set(id, employee);
     }
 
+    /**
+     * Удаляет сотрудника.
+     *
+     * @param employee Объект сотрудника, который нужно удалить.
+     */
     @Override
     public void delete(Employee employee) {
-        if (Objects.equals(this.employee, employee)) {
-            this.employee = null;
-        }
+        this.employees.remove(employee);
+    }
+
+    /**
+     *
+     * @return Все работяги.
+     */
+    @Override
+    public ArrayList<Employee> getEmployees() {
+        return this.employees;
     }
 }

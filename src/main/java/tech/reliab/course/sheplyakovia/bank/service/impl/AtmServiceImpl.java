@@ -6,23 +6,27 @@ import tech.reliab.course.sheplyakovia.bank.entity.BankOffice;
 import tech.reliab.course.sheplyakovia.bank.entity.Employee;
 import tech.reliab.course.sheplyakovia.bank.enums.WorkStatus;
 import tech.reliab.course.sheplyakovia.bank.service.AtmService;
-import tech.reliab.course.sheplyakovia.bank.service.BankService;
 
-import java.util.Objects;
+import java.util.ArrayList;
+
 import java.util.Random;
 
 public class AtmServiceImpl implements AtmService {
-    private long id = 0;
-    Random random = new Random();
-    private BankService bankService;
-    BankAtm bankAtm;
+
+    private int id = 0;
+    private final ArrayList<BankAtm> bankAtms = new ArrayList<>(0);
+
     /**
-     * Создает новый банкомат и увеличивает кол-ло банкоматов в банке
+     * @param name     Имя банкомата.
+     * @param bank     Банк, которому принадлежит банкомат.
+     * @param office   Офис, в котором находится банкомат.
+     * @param employee Обслуживающий сотрудник.
      */
     @Override
     public BankAtm create(String name, Bank bank, BankOffice office, Employee employee) {
+        Random random = new Random();
 
-        this.bankAtm = BankAtm
+        BankAtm bankAtm = BankAtm
                 .builder()
                 .id(id++)
                 .name(name)
@@ -35,23 +39,55 @@ public class AtmServiceImpl implements AtmService {
                 .moneyAmount(bank.getMoneyAmount())
                 .build();
 
+        bankAtms.add(bankAtm);
+        bank.getBankATMS().add(bankAtm);
+        office.getBankAtms().add(bankAtm);
+
         return bankAtm;
     }
 
+    /**
+     * Возвращает объект банкомата.
+     *
+     * @param id   Id банкомата.
+     * @param bank Банк, которому пренадлежит банкомат.
+     * @return Объект банкомата.
+     */
     @Override
-    public BankAtm getBankAtm() {
-        return bankAtm;
+    public BankAtm getBankAtm(int id, Bank bank) {
+        return bank.getBankATMS().get(id);
     }
 
+    /**
+     * Обновляет банкомат в банке.
+     *
+     * @param id      Id банкомата.
+     * @param bank    Банк, которому пренадлежит банкомат.
+     * @param bankAtm Новый банкомат.
+     */
     @Override
-    public void delete(BankAtm bankAtm) {
-        if(Objects.equals(this.bankAtm, bankAtm)) {
-            this.bankAtm = null;
-        }
+    public void update(int id, Bank bank, BankAtm bankAtm) {
+        bank.getBankATMS().set(id, bankAtm);
     }
 
+    /**
+     * Удаляет объект банкомата.
+     *
+     * @param bankAtm   Id банкомата.
+     * @param bank Банк, которому пренадлежит банкомат.
+     */
     @Override
-    public void update(BankAtm bankAtm) {
-        this.bankAtm = bankAtm;
+    public void delete(BankAtm bankAtm, Bank bank) {
+        bank.getBankATMS().remove(bankAtm);
+        bankAtms.remove(bankAtm);
+    }
+
+    /**
+     *
+     * @return Все банкоматы.
+     */
+    @Override
+    public ArrayList<BankAtm> getAtms() {
+        return this.bankAtms;
     }
 }
